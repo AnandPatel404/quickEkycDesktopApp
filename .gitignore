@@ -89,6 +89,7 @@ typings/
 .vite/
 
 # Electron-Forge
+out/*
 /test-results/
 /playwright-report/
 /blob-report/
