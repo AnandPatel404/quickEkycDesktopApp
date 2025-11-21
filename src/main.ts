@@ -20,11 +20,12 @@ function createWindow() {
 		webPreferences: {
 			devTools: inDevelopment,
 			contextIsolation: true,
-			nodeIntegration: false, // FIXED
+			nodeIntegration: false,
 			nodeIntegrationInSubFrames: false,
 			preload,
 		},
-		titleBarStyle: process.platform === "darwin" ? "hiddenInset" : "hidden",
+		titleBarStyle:
+			process.platform === "darwin" ? "hiddenInset" : undefined,
 		trafficLightPosition:
 			process.platform === "darwin" ? { x: 5, y: 5 } : undefined,
 	});
