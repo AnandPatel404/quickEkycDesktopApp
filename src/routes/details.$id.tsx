@@ -267,6 +267,29 @@ function SecondPage() {
 		setManualLoading(false);
 	};
 
+	const downloadSampleCsv = () => {
+		if (!itemData || !itemData.inputs) return;
+
+		// CSV headers = input names (because CSV parser maps using input.name)
+		const headers = itemData.inputs.map((inp) => inp.name);
+
+		// Create an empty sample row
+		const sampleRow = headers.map(() => "");
+
+		const csvContent = [headers.join(","), sampleRow.join(",")].join("\n");
+
+		const blob = new Blob([csvContent], { type: "text/csv" });
+		const url = window.URL.createObjectURL(blob);
+
+		const a = document.createElement("a");
+		a.href = url;
+		a.download = `${itemData.name || "sample"}_sample.csv`;
+		a.click();
+
+		window.URL.revokeObjectURL(url);
+	};
+
+
 	useEffect(() => {
 		const item = data.find((d) => d.id === Number(id));
 		if (item) {
@@ -434,6 +457,12 @@ function SecondPage() {
 									}
 								>
 									Download Results CSV
+								</Button>
+								<Button
+									onClick={downloadSampleCsv}
+									variant="outline"
+								>
+									Download Sample CSV
 								</Button>
 							</div>
 							<Progress value={progress} className="w-[100%]" />
